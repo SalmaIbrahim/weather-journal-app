@@ -31,7 +31,7 @@ function knowZipCode(event) {
     const userResponse = userResponseElement.value;
 
     // whole url
-    const url = `${baseURL}zip=${zipCode}&appid=${apiKey}`;     
+    const url = `${baseURL}zip=${zipCode}&appid=${apiKey}&units=metric`;     //&units=metric in Celsius //imperial  in Fahrenheit     
     
     // requirements - No.4
     // Chaining Promises
@@ -92,7 +92,7 @@ const updateUI = async () => {
     try {
         const data = await res.json();
         document.getElementById('date').innerHTML = `Today: ${data.date}`;
-        document.getElementById('temp').innerHTML = `Temperature: ${Math.round(data.temp)} degrees`;
+        document.getElementById('temp').innerHTML = `Temperature: ${Math.round(data.temp)} &deg;C`;
         document.getElementById('content').innerHTML = `Content: ${data.userRes}`;
 
     } catch (error) {
