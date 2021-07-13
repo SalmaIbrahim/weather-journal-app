@@ -37,12 +37,12 @@ function knowZipCode(event) {
     // Chaining Promises
     getWeather(url)
     .then(function (data) {
-        postWeather({temp: data, date: newDate, userRes: userResponse})
-        //requirments - No.5
-        .then ( function(projData) {
-            updateUI(projData);
-        });
-    });
+        postWeather({temp: data, date: newDate, userRes: userResponse}) 
+    })
+    //requirments - No.5
+    .then (
+        updateUI()
+    );
     
 }
 
@@ -86,10 +86,13 @@ const postWeather = async (data = {}) => {
 
 // requirements - No.5
 /* beginning of update UI func */
-const updateUI = async (data = {}) => {
+const updateUI = async () => {
+    const res = await fetch('/getData');
+
     try {
+        const data = await res.json();
         document.getElementById('date').innerHTML = `Today: ${data.date}`;
-        document.getElementById('temp').innerHTML = `Temperature: ${data.temp}`;
+        document.getElementById('temp').innerHTML = `Temperature: ${Math.round(data.temp)} degrees`;
         document.getElementById('content').innerHTML = `Content: ${data.userRes}`;
 
     } catch (error) {
